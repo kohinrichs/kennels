@@ -1,12 +1,8 @@
 import React from "react"
 import { AnimalCard } from "./animal/AnimalCard"
-import "./animal/Animal.css"
 import { CustomerCard } from "./customer/CustomerCard"
-import "./customer/Customer.css"
 import { EmployeeCard } from "./employee/EmployeeCard"
-import "./employee/Employee.css"
 import { LocationCard } from "./location/LocationCard"
-import "./location/Location.css"
 
 export const Kennel = () => (
     <>
