@@ -46,6 +46,17 @@ export const ApplicationViews = () => {
                     <EmployeeList />
                 </Route>
             </EmployeeProvider>
+
+            {/* Will be used to render a create Animals component */}
+            {/* <AnimalProvider>
+                <LocationProvider>
+                    <CustomerProvider>
+                        <Route exact path="/animals/create">
+                            <AnimalForm />
+                        </Route>
+                    </CustomerProvider>
+                </LocationProvider>
+            </AnimalProvider> */}
         </>
     )
 }
