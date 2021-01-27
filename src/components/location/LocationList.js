@@ -21,7 +21,6 @@ export const LocationList = () => {
   return (
     <div className="locations">
       {console.log("LocationList: Render", locations)}
-     
       <h2>Locations</h2>
         <button onClick={() => {history.push("/locations/create")}}>
           Add Location
