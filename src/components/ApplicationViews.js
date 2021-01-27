@@ -4,14 +4,17 @@ import { Home } from "./Home"
 import { AnimalProvider } from "./animal/AnimalProvider"
 import { AnimalList } from "./animal/AnimalList"
 import { AnimalForm } from "./animal/AnimalForm"
-import { CustomerProvider} from "./customer/CustomerProvider"
+import { AnimalDetail } from "./animal/AnimalDetail"
+import { CustomerProvider } from "./customer/CustomerProvider"
 import { CustomerList } from "./customer/CustomerList"
 import { LocationProvider } from "./location/LocationProvider"
 import { LocationList } from "./location/LocationList"
 import { LocationForm } from "./location/LocationForm"
+import { LocationDetail } from "./location/LocationDetail"
 import { EmployeeProvider } from "./employee/EmployeeProvider"
 import { EmployeeList } from "./employee/EmployeeList"
 import { EmployeeForm } from "./employee/EmployeeForm"
+import {EmployeeDetail } from "./employee/EmployeeDetail"
 
 export const ApplicationViews = () => {
     return (
@@ -36,14 +39,20 @@ export const ApplicationViews = () => {
                 </LocationProvider>
             </AnimalProvider>
 
-             {/* Render the customer list when http://localhost:3000/customers */}
-             <CustomerProvider>
+            <AnimalProvider>
+                <Route exact path="/animals/detail/:animalId(\d+)">
+                    <AnimalDetail />
+                </Route>
+            </AnimalProvider>
+
+            {/* Render the customer list when http://localhost:3000/customers */}
+            <CustomerProvider>
                 <Route exact path="/customers">
                     <CustomerList />
                 </Route>
             </CustomerProvider>
-             
-              {/* Render the location list when http://localhost:3000/locations */}
+
+            {/* Render the location list when http://localhost:3000/locations */}
             <LocationProvider>
                 <Route exact path="/locations">
                     <LocationList />
@@ -53,8 +62,14 @@ export const ApplicationViews = () => {
                 </Route>
             </LocationProvider>
 
+            <LocationProvider>
+                <Route exact path="/locations/detail/:locationId(\d+)">
+                    <LocationDetail />
+                </Route>
+            </LocationProvider>
 
-              {/* Render the employee list when http://localhost:3000/employees */}
+
+            {/* Render the employee list when http://localhost:3000/employees */}
             <EmployeeProvider>
                 <LocationProvider>
                     <Route exact path="/employees">
@@ -65,6 +80,12 @@ export const ApplicationViews = () => {
                         <EmployeeForm />
                     </Route>
                 </LocationProvider>
+            </EmployeeProvider>
+
+            <EmployeeProvider>
+                <Route exact path="/employees/detail/:employeeId(\d+)">
+                    <EmployeeDetail />
+                </Route>
             </EmployeeProvider>
         </>
     )
