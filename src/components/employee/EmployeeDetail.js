@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from "react"
 import { EmployeeContext } from "./EmployeeProvider"
 import "./Employee.css"
-import { useParams } from "react-router-dom"
+import { useHistory, useParams } from "react-router-dom"
 
 export const EmployeeDetail = () => {
   const { getEmployeeById } = useContext(EmployeeContext)
 
-	const [employee, setEmployee] = useState({})
+  const [employee, setEmployee] = useState({})
+  
+  const history = useHistory()
 
 	const {employeeId} = useParams();
 
@@ -25,6 +27,9 @@ export const EmployeeDetail = () => {
       have a property called name*/}
       <div className="employee__location">Location: {employee.location?.name}</div>
       <div className="employee__location--address">Location Address: {employee.location?.address}</div>
+      <button onClick={() => {
+        history.push(`/employees/edit/${employee.id}`)
+      }}>Edit</button>
     </section>
   )
 }
