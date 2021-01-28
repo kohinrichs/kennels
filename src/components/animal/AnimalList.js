@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from "react-router-dom"
 import { AnimalContext } from "./AnimalProvider"
 import { LocationContext } from "../location/LocationProvider"
@@ -10,10 +10,11 @@ import "./Animal.css"
 // May need to refactor later on depending on what we need locations for/to do.
 export const AnimalList = () => {
   // This state changes when `getAnimals()` is invoked below
-  const { animals, getAnimals } = useContext(AnimalContext)
+  const { animals, getAnimals, searchTerms } = useContext(AnimalContext)
   const { locations, getLocations } = useContext(LocationContext)
   const { customers, getCustomers } = useContext(CustomerContext)
 
+    const [ filteredAnimals, setFiltered ] = useState([])
     // The useHistory hook let's us tell React which route we want to visit. We will use it to tell React to render the animal form component.
     const history = useHistory()
 
@@ -27,31 +28,33 @@ export const AnimalList = () => {
     getAnimals()
   }, [])
 
+    // useEffect dependency array with dependencies - will run if dependency changes (state)
+  // searchTerms will cause a change
+  useEffect(() => {
+    if (searchTerms !== "") {
+      // If the search field is not blank, display matching animals
+      const subset = animals.filter(animal => animal.name.toLowerCase().includes(searchTerms))
+      setFiltered(subset)
+    } else {
+      // If the search field is blank, display all animals
+      setFiltered(animals)
+    }
+  }, [searchTerms, animals])
+
   return (
-    <div className="animals">
-       <h2>Animals</h2>
-		      <button onClick={() => {history.push("/animals/create")}}>
-            Add Animal
-          </button>
+    <>
+      <h1>Animals</h1>
 
-      {animals.map(animal => {
-          const customer = customers.find(c => c.id === animal.customerId)
-          const location = locations.find(l => l.id === animal.locationId)
-
-          return <AnimalCard key={animal.id} animal={animal} customer={customer} location ={location} />
+      <button onClick={() => history.push("/animals/create")}>
+          Make Reservation
+      </button>
+      <div className="animals">
+      {
+        filteredAnimals.map(animal => {
+          return <AnimalCard key={animal.id} animal={animal} />
         })
       }
-    </div>
+      </div>
+    </>
   )
 }
-// animals.map(animal => {
-//   const owner = customers.find(c => c.id === animal.customerId)
-//   const clinic = locations.find(l => l.id === animal.locationId)
-
-// return <AnimalCard key={animal.id}
-//   location={clinic}
-//   customer={owner}
-//   animal={animal} />
-// }
-// )
-// }

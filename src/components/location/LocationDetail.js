@@ -28,8 +28,8 @@ export const LocationDetail = () => {
       {/* The question marks are for option chaining. The code won't break if location or customer doesn't
       have a property called name*/}
       <div className="location__address">{location.address}</div>
-      <div className="location__employees">Employees: {location.employees.map(employee => employee.name + " ")}</div>
-      <div className="location__animals">Animals: {location.animals.map(animal => animal.name + " ")}</div>
+      <div className="location__employees">Employees: {location.employees.map(employee => employee.name).join(", ")}</div>
+      <div className="location__animals">Animals: {location.animals.map(animal => animal.name).join(", ")}</div>
       <button onClick={() => {
         history.push(`/locations/edit/${location.id}`)
       }}>Edit</button>
